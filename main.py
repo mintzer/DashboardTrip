@@ -8,6 +8,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import math
+from selenium.webdriver.chrome.options import Options
+
 
 
 def scroll_tab():
@@ -32,9 +34,10 @@ def scroll_tab():
 # Start the Chrome browser
 driver = webdriver.Chrome()
 
+#options = Options()
 # Navigate to the website
 driver.get("https://shaym.shinyapps.io/AppCentralData/")
-
+#options.add_argument('window-size=1920x1080')
 # Wait a few seconds for the page to load
 driver.implicitly_wait(10)
 
@@ -48,8 +51,7 @@ password_field.send_keys("appc1")
 
 #driver.maximize_window()
 
-# Go full screen and zoom out
-#driver.execute_script("document.body.style.zoom='50%'")
+# Go full screen and zoom ou
 driver.execute_script("document.body.style.overflow='hidden'")
 driver.execute_script("document.body.requestFullscreen()")
 
@@ -59,9 +61,12 @@ login_button.click()
 
 # Wait a few seconds for the page to load
 driver.implicitly_wait(3)
-
+driver.execute_script("document.body.style.zoom='60%'")
+time.sleep(2)
 # Click on the element
-driver.find_element(By.XPATH, '//*[@id="sidebarItemExpanded"]/ul/li[4]/ul/li[7]/a').click()
+CampaignsTrackTab = driver.find_element(By.XPATH, '//a[@href="#shiny-tab-CampaignsTrackTab" and @data-toggle="tab"]')
+
+CampaignsTrackTab.click()
 #driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
 scroll_tab()
 time.sleep(5)
