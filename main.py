@@ -36,7 +36,7 @@ driver = webdriver.Chrome()
 driver.get("https://shaym.shinyapps.io/AppCentralData/")
 
 # Wait a few seconds for the page to load
-driver.implicitly_wait(3)
+driver.implicitly_wait(10)
 
 # Find the username field and enter the username
 username_field = driver.find_element(By.ID, "login-user_name")
@@ -57,20 +57,19 @@ driver.execute_script("document.body.requestFullscreen()")
 login_button = driver.find_element(By.ID, "login-button")
 login_button.click()
 
-driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
-
 # Wait a few seconds for the page to load
 driver.implicitly_wait(3)
 
 # Click on the element
-driver.find_element(By.XPATH, '//a[@href="#shiny-tab-CampaignsTrackTab" and @data-toggle="tab"]').click()
+driver.find_element(By.XPATH, '//*[@id="sidebarItemExpanded"]/ul/li[4]/ul/li[7]/a').click()
+#driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
 scroll_tab()
 time.sleep(5)
 
-driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+#driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
 time.sleep(2)
 # Click on the element
 driver.find_element(By.XPATH, '//a[@href="#shiny-tab-VersionsTimelineTab" and @data-toggle="tab"]').click()
-driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+#driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
 scroll_tab()
 time.sleep(5)
