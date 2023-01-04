@@ -15,7 +15,7 @@ from selenium.webdriver.chrome.options import Options
 def scroll_tab():
     # driver.execute_script("document.body.style.zoom='100%'")
     # Get the wrapper element
-    wrapper = driver.find_element_by_css_selector('.wrapper')
+    wrapper = driver.find_element(By.CLASS_NAME, 'wrapper')
     driver.execute_script("arguments[0].style.height = '100%'", wrapper)
 
     height = driver.execute_script("return document.body.scrollHeight;")
