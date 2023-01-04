@@ -26,7 +26,7 @@ def scroll_tab():
         # Set the scroll step (the amount by which the wrapper should be scrolled in each iteration)
         # Scroll by 50 pixels
         scroll_position = wrapper.get_attribute('scrollTop')
-        driver.execute_script("arguments[0].scrollBy(0, 50);", wrapper)
+        driver.execute_script("arguments[0].scrollBy(0, 100);", wrapper)
         # Get the current position of the scrollbar
 
         # Print the current scroll position
