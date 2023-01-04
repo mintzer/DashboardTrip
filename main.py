@@ -30,12 +30,12 @@ def scroll_tab():
         # Get the current position of the scrollbar
 
         # Print the current scroll position
-        print(scroll_position)
+        #print(scroll_position)
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         if scroll_position == wrapper.get_attribute('scrollTop'):
             break
         # Pause
-        time.sleep(10)
+        time.sleep(20)
 
 # Start the Chrome browser
 driver = webdriver.Chrome()
@@ -79,9 +79,10 @@ while True:
     # Click on the element
     driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
 
-    CampaignsTrackTab = driver.find_element(By.XPATH, '//a[@href="#shiny-tab-CampaignsTrackTab" and @data-toggle="tab"]')
-
-    CampaignsTrackTab.click()
+    #CampaignsTrackTab = driver.find_element(By.XPATH, '//a[@href="#shiny-tab-CampaignsTrackTab" and @data-toggle="tab"]')
+    #driver.get("https://shaym.shinyapps.io/AppCentralData/#shiny-tab-CampaignsTrackTab")
+    driver.find_element(By.XPATH, '//a[@data-value="CampaignsTrackTab"]').click()
+    #CampaignsTrackTab.click()
     driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
     scroll_tab()
     time.sleep(5)
@@ -89,7 +90,7 @@ while True:
     driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
     time.sleep(2)
     # Click on the element
-    driver.find_element(By.XPATH, '//a[@href="#shiny-tab-VersionsTimelineTab" and @data-toggle="tab"]').click()
+    driver.find_element(By.XPATH, '//a[@data-value="VersionsTimelineTab"]').click()
     driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
     scroll_tab()
     time.sleep(5)
