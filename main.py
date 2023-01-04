@@ -19,6 +19,7 @@ def scroll_tab():
     driver.execute_script("arguments[0].style.height = '100%'", wrapper)
 
     height = driver.execute_script("return document.body.scrollHeight;")
+    time.sleep(10)
     #print(height)
     driver.execute_script("arguments[0].scrollTop = 0;", wrapper)
     # Scroll to the bottom of the wrapper element slowly
@@ -26,7 +27,7 @@ def scroll_tab():
         # Set the scroll step (the amount by which the wrapper should be scrolled in each iteration)
         # Scroll by 50 pixels
         scroll_position = wrapper.get_attribute('scrollTop')
-        driver.execute_script("arguments[0].scrollBy(0, 100);", wrapper)
+        driver.execute_script("arguments[0].scrollBy(0, 650);", wrapper)
         # Get the current position of the scrollbar
 
         # Print the current scroll position
@@ -35,7 +36,7 @@ def scroll_tab():
         if scroll_position == wrapper.get_attribute('scrollTop'):
             break
         # Pause
-        time.sleep(20)
+        time.sleep(40)
 
 # Start the Chrome browser
 driver = webdriver.Chrome()
