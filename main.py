@@ -29,25 +29,26 @@ def scroll_tab():
     driver.execute_script('document.documentElement.style.overflow = "hidden";')
     driver.execute_script('arguments[0].style.overflow = "hidden";', wrapper)
     # Scroll to the bottom of the wrapper element slowly
-    while True:
+    run = True
+    while run:
         # Set the scroll step (the amount by which the wrapper should be scrolled in each iteration)
         # Scroll by 50 pixels
         scroll_position = wrapper.get_attribute('scrollTop')
         driver.execute_script("arguments[0].scrollBy(0, 1);", wrapper)
         # Get the current position of the scrollbar
-        time.sleep(0.02)
+        time.sleep(0.01)
         # Print the current scroll position
         #print(scroll_position)
         #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         if scroll_position == wrapper.get_attribute('scrollTop'):
-            while True:
-                scroll_position = driver.execute_script("return document.body.scrollTop;")
+            while run:
+                scroll_position = driver.execute_script("return document.documentElement.scrollTop;")
                 driver.execute_script("document.documentElement.scrollBy(0, 1);", wrapper)
 
-                time.sleep(0.02)
+                time.sleep(0.01)
                 if scroll_position == driver.execute_script("return document.documentElement.scrollTop;"):
-                    break
-            break
+                    run = False
+
         # Pause
 
 
