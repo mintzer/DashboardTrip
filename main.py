@@ -19,46 +19,59 @@ def scroll_tab():
     driver.execute_script("arguments[0].style.height = '100%'", wrapper)
 
     height = driver.execute_script("return document.body.scrollHeight;")
+    driver.implicitly_wait(10)
     time.sleep(10)
     #print(height)
+    driver.execute_script("document.body.scrollTop = 0;")
+    driver.execute_script("document.body.scrollTo(0, 0);")
     driver.execute_script("arguments[0].scrollTop = 0;", wrapper)
+    driver.execute_script("arguments[0].scrollTo(0, 0);", wrapper)
+    driver.execute_script('document.documentElement.style.overflow = "hidden";')
+    driver.execute_script('arguments[0].style.overflow = "hidden";', wrapper)
     # Scroll to the bottom of the wrapper element slowly
     while True:
         # Set the scroll step (the amount by which the wrapper should be scrolled in each iteration)
         # Scroll by 50 pixels
         scroll_position = wrapper.get_attribute('scrollTop')
-        driver.execute_script("arguments[0].scrollBy(0, 650);", wrapper)
+        driver.execute_script("arguments[0].scrollBy(0, 1);", wrapper)
         # Get the current position of the scrollbar
-
+        time.sleep(0.02)
         # Print the current scroll position
         #print(scroll_position)
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         if scroll_position == wrapper.get_attribute('scrollTop'):
             break
         # Pause
-        time.sleep(40)
+
+
+def login():
+    driver.execute_script("window.scrollTo(0, 0);")
+    driver.implicitly_wait(10)
+
+    # Find the username field and enter the username
+    username_field = driver.find_element(By.ID, "login-user_name")
+    username_field.send_keys("app")
+
+    # Find the password field and enter the password
+    password_field = driver.find_element(By.ID, "login-password")
+    password_field.send_keys("appc1")
+    login_button = driver.find_element(By.ID, "login-button")
+    login_button.click()
 
 # Start the Chrome browser
 driver = webdriver.Chrome()
 
 #options = Options()
 # Navigate to the website
-driver.get("https://shaym.shinyapps.io/AppCentralData/")
+#driver.get("https://shaym.shinyapps.io/AppCentralData/")
 #driver.execute_script("document.body.style.zoom='60%'")
-driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+#driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
 #options.add_argument('window-size=1920x1080')
 # Wait a few seconds for the page to load
-driver.implicitly_wait(10)
 
-# Find the username field and enter the username
-username_field = driver.find_element(By.ID, "login-user_name")
-username_field.send_keys("app")
-
-# Find the password field and enter the password
-password_field = driver.find_element(By.ID, "login-password")
-password_field.send_keys("appc1")
-
-# driver.maximize_window()
+driver.implicitly_wait(3)
+time.sleep(3)
+driver.maximize_window()
 
 
 # Go full screen and zoom ou
@@ -67,31 +80,17 @@ driver.execute_script("document.body.requestFullscreen()")
 
 
 # Find the login button and click on it
-login_button = driver.find_element(By.ID, "login-button")
-login_button.click()
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
 
 # Wait a few seconds for the page to load
-driver.implicitly_wait(3)
+
+tabs = ["CampaignsTrackTab", "VersionsTimelineTab","ISeCPMTab"]
 
 time.sleep(2)
 while True:
-    # Click on the element
-    driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
-
-    #CampaignsTrackTab = driver.find_element(By.XPATH, '//a[@href="#shiny-tab-CampaignsTrackTab" and @data-toggle="tab"]')
-    #driver.get("https://shaym.shinyapps.io/AppCentralData/#shiny-tab-CampaignsTrackTab")
-    driver.find_element(By.XPATH, '//a[@data-value="CampaignsTrackTab"]').click()
-    #CampaignsTrackTab.click()
-    driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
-    scroll_tab()
-    time.sleep(5)
-
-    driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
-    time.sleep(2)
-    # Click on the element
-    driver.find_element(By.XPATH, '//a[@data-value="VersionsTimelineTab"]').click()
-    driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
-    scroll_tab()
-    time.sleep(5)
+    for tab in tabs:
+        driver.get(f"https://shaym.shinyapps.io/AppCentralData/?tab={tab}")
+        login()
+        # Click on the element
+        driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+        scroll_tab()
+        time.sleep(5)
