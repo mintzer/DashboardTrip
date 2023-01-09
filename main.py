@@ -40,6 +40,13 @@ def scroll_tab():
         #print(scroll_position)
         #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         if scroll_position == wrapper.get_attribute('scrollTop'):
+            while True:
+                scroll_position = driver.execute_script("return document.body.scrollTop;")
+                driver.execute_script("document.body.scrollBy(0, 1);", wrapper)
+
+                time.sleep(0.02)
+                if scroll_position == driver.execute_script("return document.body.scrollTop;"):
+                    break
             break
         # Pause
 
@@ -83,7 +90,8 @@ driver.execute_script("document.body.requestFullscreen()")
 
 # Wait a few seconds for the page to load
 
-tabs = ["CampaignsTrackTab", "VersionsTimelineTab","ISeCPMTab"]
+tabs = ["CampaignsTrackTab"]
+    #, "VersionsTimelineTab", "ISeCPMTab"]
 
 time.sleep(2)
 while True:
