@@ -22,8 +22,8 @@ def scroll_tab():
     driver.implicitly_wait(10)
     time.sleep(10)
     #print(height)
-    driver.execute_script("document.body.scrollTop = 0;")
-    driver.execute_script("document.body.scrollTo(0, 0);")
+    driver.execute_script("document.documentElement.scrollTop = 0;")
+    driver.execute_script("document.documentElement.scrollTo(0, 0);")
     driver.execute_script("arguments[0].scrollTop = 0;", wrapper)
     driver.execute_script("arguments[0].scrollTo(0, 0);", wrapper)
     driver.execute_script('document.documentElement.style.overflow = "hidden";')
@@ -42,10 +42,10 @@ def scroll_tab():
         if scroll_position == wrapper.get_attribute('scrollTop'):
             while True:
                 scroll_position = driver.execute_script("return document.body.scrollTop;")
-                driver.execute_script("document.body.scrollBy(0, 1);", wrapper)
+                driver.execute_script("document.documentElement.scrollBy(0, 1);", wrapper)
 
                 time.sleep(0.02)
-                if scroll_position == driver.execute_script("return document.body.scrollTop;"):
+                if scroll_position == driver.execute_script("return document.documentElement.scrollTop;"):
                     break
             break
         # Pause
