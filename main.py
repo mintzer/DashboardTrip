@@ -45,7 +45,7 @@ def scroll_tab():
                 scroll_position = driver.execute_script("return document.documentElement.scrollTop;")
                 driver.execute_script("document.documentElement.scrollBy(0, 1);", wrapper)
 
-                time.sleep(0.01)
+                time.sleep(0.02)
                 if scroll_position == driver.execute_script("return document.documentElement.scrollTop;"):
                     run = False
 
