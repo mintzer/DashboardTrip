@@ -13,14 +13,20 @@ from selenium.webdriver.chrome.options import Options
 
 
 def scroll_tab():
+    driver.maximize_window()
+
+    # Go full screen and zoom ou
+    driver.execute_script("document.body.style.overflow='hidden'")
+    driver.execute_script("document.body.requestFullscreen()")
+
     # driver.execute_script("document.body.style.zoom='100%'")
     # Get the wrapper element
     wrapper = driver.find_element(By.CLASS_NAME, 'wrapper')
     driver.execute_script("arguments[0].style.height = '100%'", wrapper)
 
-    height = driver.execute_script("return document.body.scrollHeight;")
-    driver.implicitly_wait(10)
-    time.sleep(10)
+    #height = driver.execute_script("return document.body.scrollHeight;")
+    driver.implicitly_wait(15)
+    time.sleep(15)
     #print(height)
     driver.execute_script("document.documentElement.scrollTop = 0;")
     driver.execute_script("document.documentElement.scrollTo(0, 0);")
@@ -91,7 +97,7 @@ driver.execute_script("document.body.requestFullscreen()")
 
 # Wait a few seconds for the page to load
 
-tabs = ["CampaignsTrackTab"]
+tabs = ["SubRateWeeklyTab", "CampaignsTrackTab"]
     #, "VersionsTimelineTab", "ISeCPMTab"]
 
 time.sleep(2)
@@ -101,5 +107,15 @@ while True:
         login()
         # Click on the element
         driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+        # if tab == 'SubRateWeeklyTab':
+        #     time.sleep(2)
+        #     driver.find_element(By.ID, "SubRateWeeklyGo").click()
         scroll_tab()
-        time.sleep(5)
+        time.sleep(1)
+        # driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+        # driver.find_element(By.XPATH, '//a[@data-value="SubRateWeeklyTab"]').click()
+        # driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+        # driver.implicitly_wait(3)
+        # driver.find_element(By.XPATH, '//a[@id="SubRateWeeklyGo"]').click()
+        # scroll_tab()
+        # time.sleep(5)
