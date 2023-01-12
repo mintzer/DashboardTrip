@@ -11,8 +11,7 @@ import math
 from selenium.webdriver.chrome.options import Options
 
 
-
-def scroll_tab():
+def scroll_tab(fixed_scroll = []):
     driver.maximize_window()
 
     # Go full screen and zoom ou
@@ -35,25 +34,39 @@ def scroll_tab():
     driver.execute_script('document.documentElement.style.overflow = "hidden";')
     driver.execute_script('arguments[0].style.overflow = "hidden";', wrapper)
     # Scroll to the bottom of the wrapper element slowly
-    run = True
-    while run:
-        # Set the scroll step (the amount by which the wrapper should be scrolled in each iteration)
-        # Scroll by 50 pixels
-        scroll_position = wrapper.get_attribute('scrollTop')
-        driver.execute_script("arguments[0].scrollBy(0, 1);", wrapper)
-        # Get the current position of the scrollbar
-        time.sleep(0.01)
-        # Print the current scroll position
-        #print(scroll_position)
-        #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        if scroll_position == wrapper.get_attribute('scrollTop'):
-            while run:
-                scroll_position = driver.execute_script("return document.documentElement.scrollTop;")
-                driver.execute_script("document.documentElement.scrollBy(0, 1);", wrapper)
+    if fixed_scroll:
+        for scroll in fixed_scroll:
+            driver.execute_script(f"document.documentElement.scrollBy(0, {scroll});")
+            driver.execute_script(f"arguments[0].scrollBy(0, {scroll});", wrapper)
+            time.sleep(120)
 
+    else:
+        run = True
+        while run:
+            # Set the scroll step (the amount by which the wrapper should be scrolled in each iteration)
+            # Scroll by 50 pixels
+            scroll_position = wrapper.get_attribute('scrollTop')
+            driver.execute_script("arguments[0].scrollBy(0, 1);", wrapper)
+            # Get the current position of the scrollbar
+            time.sleep(0.01)
+            # Print the current scroll position
+            #print(scroll_position)
+            #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            if scroll_position == wrapper.get_attribute('scrollTop'):
+                while run:
+                    scroll_position = driver.execute_script("return document.documentElement.scrollTop;")
+                    driver.execute_script("document.documentElement.scrollBy(0, 1);")
+
+                    time.sleep(0.01)
+                    if scroll_position == driver.execute_script("return document.documentElement.scrollTop;"):
+                        run = False
+
+<<<<<<< HEAD
                 time.sleep(0.02)
                 if scroll_position == driver.execute_script("return document.documentElement.scrollTop;"):
                     run = False
+=======
+>>>>>>> refs/remotes/origin/main
 
         # Pause
 
@@ -102,6 +115,7 @@ tabs = ["SubRateWeeklyTab", "CampaignsTrackTab"]
 
 time.sleep(2)
 while True:
+<<<<<<< HEAD
     try:
         for tab in tabs:
             driver.get(f"https://shaym.shinyapps.io/AppCentralData/?tab={tab}")
@@ -124,3 +138,25 @@ while True:
     except:
         print('error')
         time.sleep(5)
+=======
+    for tab in tabs:
+        driver.get(f"https://shaym.shinyapps.io/AppCentralData/?tab={tab}")
+        login()
+        # Click on the element
+        driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+        # if tab == 'SubRateWeeklyTab':
+        #     time.sleep(2)
+        #     driver.find_element(By.ID, "SubRateWeeklyGo").click()
+        fixed_scroll = []
+        if tab == 'SubRateWeeklyTab':
+            fixed_scroll = [120]
+        scroll_tab(fixed_scroll)
+        time.sleep(1)
+        # driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+        # driver.find_element(By.XPATH, '//a[@data-value="SubRateWeeklyTab"]').click()
+        # driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+        # driver.implicitly_wait(3)
+        # driver.find_element(By.XPATH, '//a[@id="SubRateWeeklyGo"]').click()
+        # scroll_tab()
+        # time.sleep(5)
+>>>>>>> refs/remotes/origin/main
