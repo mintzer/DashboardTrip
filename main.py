@@ -102,20 +102,25 @@ tabs = ["SubRateWeeklyTab", "CampaignsTrackTab"]
 
 time.sleep(2)
 while True:
-    for tab in tabs:
-        driver.get(f"https://shaym.shinyapps.io/AppCentralData/?tab={tab}")
-        login()
-        # Click on the element
-        driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
-        # if tab == 'SubRateWeeklyTab':
-        #     time.sleep(2)
-        #     driver.find_element(By.ID, "SubRateWeeklyGo").click()
-        scroll_tab()
-        time.sleep(1)
-        # driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
-        # driver.find_element(By.XPATH, '//a[@data-value="SubRateWeeklyTab"]').click()
-        # driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
-        # driver.implicitly_wait(3)
-        # driver.find_element(By.XPATH, '//a[@id="SubRateWeeklyGo"]').click()
-        # scroll_tab()
-        # time.sleep(5)
+    try:
+        for tab in tabs:
+            driver.get(f"https://shaym.shinyapps.io/AppCentralData/?tab={tab}")
+            login()
+            # Click on the element
+            driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+            # if tab == 'SubRateWeeklyTab':
+            #     time.sleep(2)
+            #     driver.find_element(By.ID, "SubRateWeeklyGo").click()
+            scroll_tab()
+            time.sleep(1)
+            # driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+            # driver.find_element(By.XPATH, '//a[@data-value="SubRateWeeklyTab"]').click()
+            # driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
+            # driver.implicitly_wait(3)
+            # driver.find_element(By.XPATH, '//a[@id="SubRateWeeklyGo"]').click()
+            # scroll_tab()
+            # time.sleep(5)
+
+    except:
+        print('error')
+        time.sleep(5)
