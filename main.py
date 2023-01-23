@@ -104,8 +104,8 @@ driver.execute_script("document.body.requestFullscreen()")
 
 # Wait a few seconds for the page to load
 
-tabs = ["SubRateWeeklyTab", "CampaignsTrackTab"]
-    #, "VersionsTimelineTab", "ISeCPMTab"]
+tabs = ["ROITab", "ROIBundleTab", "VersionsTimelineTab", "ISeCPMTab", "SubRateWeeklyTab", "CampaignsTrackTab"]
+    #, "VersionsTimelineTab", ]
 
 time.sleep(2)
 while True:
@@ -118,15 +118,20 @@ while True:
             # if tab == 'SubRateWeeklyTab':
             #     time.sleep(2)
             #     driver.find_element(By.ID, "SubRateWeeklyGo").click()
+            if tab in ['ROITab', 'ROIBundleTab']:
+                #print(tab[:-3])
+                time.sleep(5)
+                goButton = driver.find_element(By.ID, f"{tab[:-3]}Go")
+                goButton.click()
             fixed_scroll = []
             if tab == 'SubRateWeeklyTab':
                 fixed_scroll = [120]
             scroll_tab(fixed_scroll)
-            time.sleep(1)
+            time.sleep(10)
 
     except:
         print('error')
-        time.sleep(5)
+        time.sleep(120)
 
 
         # driver.find_element(By.XPATH, '//a[@class="sidebar-toggle"]').click()
